@@ -1,9 +1,8 @@
-import { Context, Schema, h } from 'koishi'
+import { Context, Schema, h, Random } from 'koishi'
 
 export const name = 'good-or-not'
 
-export const usage = `只要发送的消息结尾是“好不好”，机器人就会帮你做选择  
-是随机的哦！不要真的让机器人帮你做重要选择！`
+export const usage = ` `
 
 export interface Config {
   好: string
@@ -26,10 +25,16 @@ export const Config: Schema<Config> = Schema.object({
 export function apply(ctx: Context, config: Config) {
   ctx.middleware(async (session, next) => {
     if (session.content.endsWith('好不好') && session.content.length > 3) {
-      let good = Math.floor(Math.random() * 101)
-      let bad = Math.floor(Math.random() * 101)
-      let result = good > bad ? config.好 : config.不好
-      if (good === bad) result = config.平
+      const good = Random.int(0, 101)
+      const bad = Random.int(0, 101)
+      let result;
+      if (good > bad) {
+        result = config.好
+      } else if (good < bad) {
+        result = config.不好
+      } else {
+        result = config.平
+      }
       return h('quote', session.event.message.id) + `好的概率是：${good}％\n不好的概率是：${bad}％\n${result}`
     } else {
       return next()
