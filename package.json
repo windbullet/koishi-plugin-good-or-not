@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-good-or-not",
   "description": "让机器人帮你决定好不好！可自定义机器人回复内容！",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [

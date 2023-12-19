@@ -35,9 +35,9 @@ export function apply(ctx: Context, config: Config) {
       } else {
         result = config.平
       }
-      return h('quote', session.event.message.id) + `好的概率是：${good}％\n不好的概率是：${bad}％\n${result}`
+      return h.quote(session.event.message.id) + `好的概率是：${good}％\n不好的概率是：${bad}％\n${result}`
     } else {
       return next()
     }
-  }), true
+  })
 }
